@@ -13,8 +13,9 @@ import { CreateUserParams, UpdateUserParams } from '@/types'
 export async function createUser(user: CreateUserParams) {
   try {
     await connectToDatabase()
-
+    console.log('Database Connected to Create User in Mongoose');
     const newUser = await User.create(user)
+    console.log("🚀 Database ~ createUser ~ newUser:", newUser)
     return JSON.parse(JSON.stringify(newUser))
   } catch (error) {
     handleError(error)
@@ -24,7 +25,7 @@ export async function createUser(user: CreateUserParams) {
 export async function getUserById(userId: string) {
   try {
     await connectToDatabase()
-
+    
     const user = await User.findById(userId)
 
     if (!user) throw new Error('User not found')

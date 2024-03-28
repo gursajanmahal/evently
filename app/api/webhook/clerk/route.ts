@@ -29,7 +29,9 @@ export async function POST(req: Request) {
  
   // Get the body
   const payload = await req.json()
+  console.log("🚀 Clerk ~ POST ~ payload:", payload)
   const body = JSON.stringify(payload);
+  console.log("🚀 Clerk ~ POST ~ body:", body)
  
   // Create a new Svix instance with your secret.
   const wh = new Webhook(WEBHOOK_SECRET);
@@ -52,6 +54,7 @@ export async function POST(req: Request) {
  
   // Get the ID and type
   const { id } = evt.data;
+  console.log("🚀 Clerk ~ POST ~ event-id:", id)
   const eventType = evt.type;
  
   if(eventType === 'user.created') {
@@ -65,6 +68,7 @@ export async function POST(req: Request) {
       lastName: last_name,
       photo: image_url,
     }
+    console.log("🚀 Clerk ~ POST ~ user:", user)
 
     const newUser = await createUser(user);
 
@@ -104,4 +108,3 @@ export async function POST(req: Request) {
  
   return new Response('', { status: 200 })
 }
- 
